@@ -2,7 +2,7 @@ package Graph;
 
 public class VNode<AnyType> {
 	private AnyType data;
-	private ArcNode firstArc;
+	private ArcNode firstArc; //这个结点里的第一条边
 	public VNode(){
 		this(null, null);
 	}

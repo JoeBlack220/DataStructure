@@ -50,7 +50,7 @@ public class MGraph<AnyType> implements IGraph{
 			vexs[i] = (AnyType)sc.next();
 		}
 		arcs = new int [vexNum][vexNum];
-		for(int i = 0; i < vexNum; i++){
+		for(int i = 0; i < vexNum; i++){          //初始化邻接矩阵
 			for(int j = 0; j< vexNum; j++){
 				arcs[i][j] = INFINITY;
 			}
@@ -73,7 +73,7 @@ public class MGraph<AnyType> implements IGraph{
             vexs[i] = (AnyType)sc.next();
         }
         arcs = new int[vexNum][vexNum];
-        for(int i = 0; i < vexNum; i++){
+        for(int i = 0; i < vexNum; i++){   //初始化邻接矩阵
             for(int j = 0; j < vexNum; j++){
                 arcs[i][j] = INFINITY;
             }
@@ -96,7 +96,7 @@ public class MGraph<AnyType> implements IGraph{
             vexs[i] = (AnyType)sc.next();
         }
         arcs = new int[vexNum][vexNum];
-        for(int i = 0; i < vexNum; i++){
+        for(int i = 0; i < vexNum; i++){   //初始化邻接矩阵
             for(int j = 0; j < vexNum; j++){
                 arcs[i][j] = INFINITY;
             }
@@ -119,7 +119,7 @@ public class MGraph<AnyType> implements IGraph{
             vexs[i] = (AnyType)sc.next();
         }
         arcs = new int[vexNum][vexNum];
-        for(int i = 0; i < vexNum; i++){
+        for(int i = 0; i < vexNum; i++){   //初始化邻接矩阵
             for(int j = 0; j < vexNum; j++){
                 arcs[i][j] = INFINITY;
             }
@@ -174,7 +174,7 @@ public class MGraph<AnyType> implements IGraph{
 		}
 		return -1;
 	}
-	public void display(){
+	public void display(){   //输出邻接矩阵
 		for(int i = 0; i < vexNum; i++){
 			for(int j = 0; j < vexNum; j++){
 				if(arcs[i][j]==INFINITY){

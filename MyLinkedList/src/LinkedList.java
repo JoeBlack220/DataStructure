@@ -1,15 +1,11 @@
 import java.util.*;
 import java.io.*;
 public class LinkedList<AnyType> implements Iterable < AnyType > {
-	private static class Node <AnyType>{
-		public Node (AnyType d, Node<AnyType> p, Node<AnyType> n){
-			data = d; prev = p; next = n;
-		}
-		public AnyType data;
-		public Node<AnyType> prev;
-		public Node<AnyType> next;
-	}
-	private static final String AnyType = null;
+	private int theSize;
+	private int modCount = 0;
+	private Node<AnyType> beginMarker;
+	private Node<AnyType> endMarker;
+	
 	public LinkedList()
 	{
 		clear();
@@ -33,39 +29,39 @@ public class LinkedList<AnyType> implements Iterable < AnyType > {
 		add( size(), x); return true;
 	}
 	public void add( int idx, AnyType x){
-		addBefore(getNode(idx), x);
+		addBefore(getNode( idx ), x);
 	}
 	public AnyType get( int idx ){
 		return getNode( idx ).data;
 	}
 	public AnyType set(int idx, AnyType newVal){
-		Node<AnyType> p = getNode( idx );
-		AnyType oldVal = p.data;
-		p.data = newVal;
+		Node<AnyType> theNode = getNode( idx );
+		AnyType oldVal = theNode.data;
+		theNode.data = newVal;
 		return oldVal;
 	}
 	public AnyType remove( int idx ){
 		return remove(getNode( idx ));
 	}
-	private void addBefore(Node<AnyType> p, AnyType x){
-		Node <AnyType> newNode = new Node <AnyType>(x, p.prev, p);
+	private void addBefore(Node<AnyType> theNode, AnyType x){
+		Node <AnyType> newNode = new Node <AnyType>(x, theNode.prev, theNode);
 		newNode.prev.next = newNode ;
-		p.prev = newNode;
+		theNode.prev = newNode;
 		theSize ++;
 		modCount ++;
 	}
-	private AnyType remove( Node<AnyType> p){
-		p.prev.next = p.next;
+	private AnyType remove( Node<AnyType> theNode){
+		theNode.prev.next = theNode.next;
 		theSize --;
 		modCount ++;
-		return p.data;
+		return theNode.data;
 	}
 	private Node<AnyType> getNode(int idx){
 		Node <AnyType> p;
-		if(idx < 0 || idx>size()){
+		if(idx < 0 || idx > size()){
 			throw new IndexOutOfBoundsException();
 		}
-		if(idx > size()/2){
+		if(idx < size()/2){
 			p = beginMarker.next;
 			for(int i = 0; i < idx; i ++){
 				p = p.next;
@@ -112,31 +108,6 @@ public class LinkedList<AnyType> implements Iterable < AnyType > {
 			LinkedList.this.remove(current.prev);
 			okToRemove = false;
 			expectedModCount ++;
-		}
-	}
-	private int theSize;
-	private int modCount = 0;
-	private Node<AnyType> beginMarker;
-	private Node<AnyType> endMarker;
-	
-	public static void main(String[] args) throws IOException{
-		try(Scanner in = new Scanner(new FileInputStream("C://Users//Joe//Desktop//Test//test.dat"),"UTF-8")){
-			int n = in.nextInt();
-			LinkedList<Integer> myLinkedList = new LinkedList();
-			for(int i = 0; i < n; i++){
-				int m = in.nextInt();
-				myLinkedList.add(m);
-			}
-		Iterator itr = myLinkedList.iterator();
-		while(itr.hasNext()){
-			System.out.print(itr.next()+" ");
-		}
-		System.out.println();
-		myLinkedList.remove(3);
-		Iterator itr2 = myLinkedList.iterator();
-		while(itr2.hasNext()){
-			System.out.print(itr2.next()+" ");
-		}
 		}
 	}
 

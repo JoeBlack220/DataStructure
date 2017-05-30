@@ -1,19 +1,7 @@
 import java.io.*;
 import java.util.*;
 public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
-	private static class BinaryNode<AnyType>{
-		BinaryNode(AnyType theElement){
-			this( theElement, null, null );
-		}
-		BinaryNode( AnyType theElement, BinaryNode<AnyType> lt, BinaryNode<AnyType> rt ){
-			element = theElement; left = lt; right = rt;
-		}
-		
-		AnyType element;
-		BinaryNode<AnyType> left;
-		BinaryNode<AnyType> right;
-	}
-	
+
 	private BinaryNode<AnyType> root;
 	
 	public BinarySearchTree(){
@@ -56,95 +44,80 @@ public class BinarySearchTree<AnyType extends Comparable<? super AnyType>> {
 		}
 	}
 	
-	private boolean contains( AnyType x, BinaryNode<AnyType> t ){
-		if(t == null){
+	private boolean contains( AnyType x, BinaryNode<AnyType> theNode ){
+		if(theNode == null){
 			return false;
 		}
-		int compareResult = x.compareTo( t.element );
+		int compareResult = x.compareTo( theNode.element );
 		if(compareResult < 0){
-			return contains( x, t.left );
+			return contains( x, theNode.left );
 		}
 		else  if(compareResult > 0){
-			return contains( x, t.right );
+			return contains( x, theNode.right );
 		}
 		else
 			return true;
 	}
-	private BinaryNode<AnyType> findMin( BinaryNode<AnyType> t ){
-		if(t == null){
+	private BinaryNode<AnyType> findMin( BinaryNode<AnyType> theNode ){
+		if(theNode == null){
 			return null;
 		}
-		else if( t.left == null ){
-			return t;         
+		if( theNode.left == null ){
+			return theNode;         
+		}	else{
+		return findMin( theNode.left );
 		}
-		return findMin( t.left );
 	}
-	private BinaryNode<AnyType> findMax( BinaryNode<AnyType> t ){
-		if(t == null){
+	private BinaryNode<AnyType> findMax( BinaryNode<AnyType> theNode ){
+		if(theNode == null){
 			return null;
 		}
-		else if( t.right == null ){
-			return t;
+		if( theNode.right == null ){
+			return theNode;
+		}	else{
+		return findMax( theNode.right );
 		}
-		return findMax( t.right );
 	}
-	private BinaryNode<AnyType> insert( AnyType x, BinaryNode<AnyType> t ){
-		if( t == null){
+	private BinaryNode<AnyType> insert( AnyType x, BinaryNode<AnyType> theNode ){
+		if( theNode == null){
 			return new BinaryNode<AnyType>( x, null, null );
 		}
-		int compareResult = x.compareTo(t.element );
+		int compareResult = x.compareTo(theNode.element );
 		if(compareResult > 0){
-			t.right = insert( x, t.right );
+			theNode.right = insert( x, theNode.right );
 		}
 		else if(compareResult < 0){
-			t.left = insert( x, t.left );
+			theNode.left = insert( x, theNode.left );
 		}
-		else
-			;
-		return t;
+		return theNode;
 	}
-	private BinaryNode<AnyType> remove( AnyType x, BinaryNode<AnyType> t ){
-		if(t == null){
-			return t;
+	private BinaryNode<AnyType> remove( AnyType x, BinaryNode<AnyType> theNode ){
+		if(theNode == null){
+			return theNode;
 		}
 		
-		int compareResult = x.compareTo(t.element);
+		int compareResult = x.compareTo(theNode.element);
 		if(compareResult < 0){
-			t.left = remove( x, t.left );
+			theNode.left = remove( x, theNode.left );
 		}
 		else if(compareResult > 0){
-			t.right = remove( x, t.right );
+			theNode.right = remove( x, theNode.right );
 		}
-		else if( t.left != null && t.right != null){
-			t.element = findMin( t.right ).element;
-			t.right = remove ( t.element, t.right );
+		else if( theNode.left != null && theNode.right != null){
+			theNode.element = findMin( theNode.right ).element;
+			theNode.right = remove ( theNode.element, theNode.right );
 		}
 		else{
-			t= ( t.left != null )? t.left : t.right;
+			theNode = ( theNode.left != null )? theNode.left : theNode.right;
 		}
-		return t;
+		return theNode;
 	}
-	private void printTree( BinaryNode<AnyType> t ){
-		if(t != null){
-			printTree( t.left );
-			System.out.println(t.element);
-			printTree( t.right );
+	private void printTree( BinaryNode<AnyType> theNode ){
+		if(theNode != null){
+			printTree( theNode.left );
+			System.out.println(theNode.element);
+			printTree( theNode.right );
 		}
 	}
 	
-	public static void main( String[] args ) throws IOException{
-		try(Scanner in = new Scanner(new FileInputStream("C://Users//Joe//Desktop//Test//test2.dat"),"UTF-8")){
-			BinarySearchTree myTree = new BinarySearchTree<Integer>();
-			int n = in.nextInt();
-			for( int i = 0; i < n; i++){
-				myTree.insert(in.nextInt());
-			}
-			System.out.println( myTree.findMax() );
-			System.out.println( myTree.findMin() );
-			myTree.printTree();
-			myTree.remove( myTree.findMin() );
-			myTree.remove( 44 );
-			myTree.printTree();
-		}
-	}
 }
