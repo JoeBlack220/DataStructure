@@ -16,8 +16,7 @@ public class Queue<AnyType> {
 			this.maxSize = initialSize;
 			data = new Object[initialSize];
 			front = rear = 0;
-		}
-		else{
+		}	else{
 			throw new RuntimeException("The initial size must be bigger than zero. "+ initialSize);
 		}
 	}
@@ -29,8 +28,7 @@ public class Queue<AnyType> {
 	public boolean enque(AnyType x){
 		if(currentSize == maxSize){
 			throw new RuntimeException("The queue is full and the new element cannot be added to the queue!");
-		}
-		else{
+		}	else{
 			data[rear] = x;
 			rear = ( rear + 1 )% maxSize;
 			currentSize ++;
@@ -40,16 +38,14 @@ public class Queue<AnyType> {
 	public AnyType peek(){
 		if(isEmpty()){
 			throw new RuntimeException("The queue is empty!");
-		}
-		else{
+		}	else{
 			return(AnyType) data[front];
 		}
 	}
 	public AnyType dequeue(){
 		if(isEmpty()){
 			throw new RuntimeException("The queue is empty!");
-		}
-		else{
+		}	else{
 			AnyType value = (AnyType) data[front];
 			data[front] = null;
 			front = ( front + 1 )% maxSize; 

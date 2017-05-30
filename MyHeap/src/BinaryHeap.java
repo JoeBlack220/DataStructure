@@ -44,14 +44,16 @@ public class BinaryHeap<AnyType extends Comparable <? super AnyType>> {
     }
     public AnyType findMin( )
     {
-        if( isEmpty( ) )
+        if( isEmpty( ) ){
             throw new RuntimeException("The heap is empty!");
+        }
         return array[ 1 ];
     }
     public AnyType deleteMin( )
     {
-        if( isEmpty( ) )
+        if( isEmpty( ) ){
             throw new RuntimeException("The heap is empty!");
+        }
 
         AnyType minItem = findMin( );
         array[ 1 ] = array[ currentSize-- ];
@@ -61,8 +63,9 @@ public class BinaryHeap<AnyType extends Comparable <? super AnyType>> {
     }
     private void buildHeap( )
     {
-        for( int i = currentSize / 2; i > 0; i-- )
-            percolateDown( i );
+        for( int i = currentSize / 2; i > 0; i-- ){
+        	percolateDown( i );
+            }
     }
     public boolean isEmpty( )
     {
